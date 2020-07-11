@@ -14,6 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -54,6 +55,12 @@ public class ProjectController {
     private Iterable<Project> getAllProjects(){
         Iterable<Project> projects = projectService.findAllProjects();
         return projects;
+    }
+
+    @DeleteMapping("/{projectId}")
+    private ResponseEntity<?> deleteProject(@PathVariable String projectId){
+       projectService.deleteProjectByIdentifier(projectId);
+       return new ResponseEntity<String>("Project with ID " + projectId + " was deleted successfully", HttpStatus.OK);
     }
 
 }
