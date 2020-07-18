@@ -14,6 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -25,6 +26,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/api/project")
+@CrossOrigin
 public class ProjectController {
 
     @Autowired
@@ -61,6 +63,12 @@ public class ProjectController {
     private ResponseEntity<?> deleteProject(@PathVariable String projectId){
        projectService.deleteProjectByIdentifier(projectId);
        return new ResponseEntity<String>("Project with ID " + projectId + " was deleted successfully", HttpStatus.OK);
+    }
+
+    @PostMapping("/{projectId}")
+    private ResponseEntity<?> updateProject(@PathVariable String projectId, @RequestBody Project project){
+        projectService.updateProject(projectId, project);
+        return new ResponseEntity<String>("Project with ID " + projectId + " was updated successfully", HttpStatus.OK);
     }
 
 }
