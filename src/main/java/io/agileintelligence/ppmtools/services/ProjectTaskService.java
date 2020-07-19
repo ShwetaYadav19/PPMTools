@@ -1,5 +1,6 @@
 package io.agileintelligence.ppmtools.services;
 
+import java.util.List;
 import io.agileintelligence.ppmtools.domain.Backlog;
 import io.agileintelligence.ppmtools.domain.ProjectTask;
 import io.agileintelligence.ppmtools.repository.BacklogRepository;
@@ -46,4 +47,7 @@ public class ProjectTaskService {
         return projectTaskRepository.save(projectTask);
     }
 
+    public List<ProjectTask> findBacklogById(String backlog_id) {
+        return  projectTaskRepository.findByProjectIdentifierOrderByPriority(backlog_id);
+    }
 }
